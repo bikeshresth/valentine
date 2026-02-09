@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💕</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      width: 380px;
+      padding: 40px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+      animation: fadeIn 1.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .photos img {
+      width: 115px;
+      height: 115px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid #ff7eb3;
+    }
+
+    h2 {
+      margin-top: 10px;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      height: 60px;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 26px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      position: absolute;
+      
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      left: 40px;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.12);
+    }
+
+    #noBtn {
+      background: #eee;
+      right: 40px;
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #ff4d6d;
+      font-weight: 500;
+      min-height: 24px;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-120vh) translateX(40px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts container -->
+  <div id="hearts"></div>
+
+  <div class="card">
+    <h1>Hey My Love 💕</h1>
+    <p class="subtitle">Life feels sweeter with you in it…</p>
+
+    <div class="photos">
+      <!-- Replace these image URLs with your own -->
+      <img src="Unknown-2.jpg" alt="Her">
+      <img src="Unknown.jpg" alt="Us">
+    </div>
+
+    <h2>Will you be my Valentine?</h2>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const message = document.getElementById("message");
+
+  const card = document.querySelector(".card");
+
+  function moveNoButton() {
+    const cardRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const padding = 20;
+
+    const maxX = cardRect.width - btnRect.width - padding;
+    const maxY = cardRect.height - btnRect.height - padding;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  }
+
+  // Run away BEFORE hover or click
+  noBtn.addEventListener("mouseover", moveNoButton);
+  noBtn.addEventListener("mousedown", moveNoButton);
+  noBtn.addEventListener("touchstart", moveNoButton);
+
+  yesBtn.addEventListener("click", () => {
+    message.innerHTML = "YAY!!! 💖 I knew you’d say yes 😘<br>Happy Valentine’s Day!";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    for (let i = 0; i < 30; i++) {
+      createHeart();
+    }
+  });
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = "24px";
+    heart.style.animation = `floatUp ${Math.random() * 3 + 4}s linear`;
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }
+</script>
+
+
+</body>
+</html>
